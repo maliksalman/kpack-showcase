@@ -1,0 +1,18 @@
+apiVersion: kpack.io/v1alpha2
+kind: Image
+metadata:
+  name: private-repo
+  namespace: dev
+spec:
+  tag: gcr.io/ps-smalik/kpack/private-repo
+  serviceAccountName: image-creator
+  builder:
+    name: base
+    kind: Builder
+  cache:
+    volume:
+      size: "128Mi"
+  source:
+    git:
+      url: git@github.com:maliksalman/private-spring-boot-app.git
+      revision: kpack-demo

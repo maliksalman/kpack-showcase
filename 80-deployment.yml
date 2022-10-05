@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: private-app
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: web
+      app: private-app
+  template:
+    metadata:
+      labels:
+        tier: web
+        app: private-app
+    spec:
+      imagePullSecrets:
+        - name: image-pull-creds
+      containers:
+        - name: main
+          image: gcr.io/ps-smalik/kpack/private-repo-image:b1.20221005.094932
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+            requests:
+              cpu: 500m
+              memory: 1Gi
