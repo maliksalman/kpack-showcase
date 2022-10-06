@@ -42,7 +42,7 @@ kubectl apply -f 20-kpack-cluster.yml
 kubectl apply -f 30-create-space.yml
 ```
 
-4. Create a various *secret* resources that are needed:
+4. Create various *secret* resources that are needed:
 
 ```
 ./40-create-secrets.sh
