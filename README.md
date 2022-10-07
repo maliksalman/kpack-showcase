@@ -4,25 +4,33 @@ This repository contains Kubernetes resources and scripts that will showcase how
 
 ## Pre-requisites
 
-1. Minikube installed and running:
+1. `kubectl` and/or `k9s` installed
+
+```
+brew install kubernetes-cli k9s
+```
+
+2. *Minikube* installed and running:
 
 ```
 berw install minikube
 minikube start
 ```
 
-2. kubectl and/or k9s installed
+3. Generate a new SSH key-pair using the following command:
 
 ```
-brew install kubernetes-cli k9s
+ssh-keygen -t ed25519 \
+    -C "user@kpack.demo" \
+    -f creds/id_ed25519 \
+    -q -N ""
 ```
 
-3. Generate a new SSH key-pair using the following command but change the location of where the files are generated. The files should be called `ed25519` and `ed25519.pub` and placed in the `creds` directory. The contents of `ed25519.pub` need to be registered with git.
+The files should be called `ed25519` and `ed25519.pub` and placed in the `creds` directory. The contents of `creds/ed25519.pub` need to be registered with git as the SSH key.
 
+5. A private Git repository accessible via SSH key-pair. This needs to be a *cloud-native buildpacks* compatible codebase - like a spring-boot app. For example, https://github.com/maliksalman/spring-data-jpa-sample. If you want to use that code, fork that repo, but keep the forked copy private so the SSH keys generated above can be utilized.
 
-5. A private Git repository accessible via SSH key-pair
-
-6. Access to a Docker registry where OCI images will be uploaded to. This example assumes GCR. The JSON key to access GCP services programmatically is needed. Once obtained, place the contents in `creds/gcr-key.json`
+6. Access to a Docker registry where OCI images will be uploaded to. This example assumes [Google Cloud Container Registry](https://cloud.google.com/container-registry). The [JSON key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) to access GCP services programmatically is needed. Once obtained, place the contents in `creds/gcr-key.json`
 
 ## Steps
 
