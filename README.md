@@ -17,7 +17,7 @@ berw install minikube
 minikube start
 ```
 
-3. Generate a new SSH key-pair using the command bellow. The files (`ed25519` and `ed25519.pub`) will be placed in the `creds` directory. The contents of `creds/ed25519.pub` need to be registered with your Git provider (like GitHub) as the SSH key.
+3. Generate a new SSH key-pair using the command bellow. The files (`id_ed25519` and `id_ed25519.pub`) will be placed in the `creds` directory. The contents of `creds/id_ed25519.pub` need to be registered with your Git provider (like GitHub) as the SSH key.
 
 ```
 ssh-keygen -t ed25519 \
