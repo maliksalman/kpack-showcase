@@ -4,7 +4,7 @@ metadata:
   name: private-repo
   namespace: dev
 spec:
-  tag: gcr.io/ps-smalik/kpack/private-repo
+  tag: gcr.io/ps-smalik/kpack/apps/private-repo
   serviceAccountName: image-creator
   builder:
     name: base

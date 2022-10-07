@@ -1,26 +1,28 @@
 # kpack-showcase
 
-This repository contains Kubernetes resources and scripts that will showcase how Kpack can be used to follow changes in a Git repository to convert into OCI complaint images and push/tag them to the Docker registry. These app images can then be used to deploy your applications in Kubernetes.
+This repository contains Kubernetes resources and scripts that will showcase how Kpack can be used to follow changes in a Git repository to convert code into OCI complaint images and push/tag them to the Docker registry. These  images can then be used to deploy your apps in Kubernetes.
 
 ## Pre-requisites
 
-1. Access to a Docker registry like GCR. This example assumes GCR
-2. Minikube installed and running:
+1. Minikube installed and running:
 
 ```
 berw install minikube
 minikube start
 ```
 
-3. kubectl and/or k9s installed
+2. kubectl and/or k9s installed
 
 ```
 brew install kubernetes-cli k9s
 ```
 
-4. Generate a new SSH key-pair using the following command but change the location of where the files are generated. The files should be called `ed25519` and `ed25519.pub` and placed in the `creds` directory. The contents of `ed25519.pub` need to be registered with git.
+3. Generate a new SSH key-pair using the following command but change the location of where the files are generated. The files should be called `ed25519` and `ed25519.pub` and placed in the `creds` directory. The contents of `ed25519.pub` need to be registered with git.
+
+
 5. A private Git repository accessible via SSH key-pair
-6. `creds/gcr-key.json` - place the GCR key contents in this file
+
+6. Access to a Docker registry where OCI images will be uploaded to. This example assumes GCR. The JSON key to access GCP services programmatically is needed. Once obtained, place the contents in `creds/gcr-key.json`
 
 ## Steps
 
@@ -36,13 +38,13 @@ brew install kubernetes-cli k9s
 kubectl apply -f 20-kpack-cluster.yml
 ```
 
-3. Create a *namespace* where we will play:
+3. Create the `dev` *namespace* where we will play:
 
 ```
-kubectl apply -f 30-create-space.yml
+kubectl apply -f 30-create-dev-space.yml
 ```
 
-4. Create various *secret* resources that are needed:
+4. Create various *secret* resources (pushing/pulling images, accessing git):
 
 ```
 ./40-create-secrets.sh
@@ -54,13 +56,13 @@ kubectl apply -f 30-create-space.yml
 kubectl apply -f 50-service-account.yml
 ```
 
-6. Create a kpack *builder* that knows which buildpacks are in play. The builder is namespaced resource:
+6. Create a kpack *builder* that knows which buildpacks are in play. The *builder* is a namespaced resource:
 
 ```
 kubectl apply -f 60-builder.yml
 ```
 
-7. Create a kpack *image* resource which points to our private Git repo. This is the resource which will create images in our configured docker registry:
+7. Create a kpack *image* resource which points to our private Git repo. This is the resource which will create OCI images in our configured docker registry:
 
 ```
 kubectl apply -f 70-image.yml
