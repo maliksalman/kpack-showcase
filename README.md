@@ -17,7 +17,7 @@ berw install minikube
 minikube start
 ```
 
-3. Generate a new SSH key-pair using the following command:
+3. Generate a new SSH key-pair using the command bellow. The files (`ed25519` and `ed25519.pub`) will be placed in the `creds` directory. The contents of `creds/ed25519.pub` need to be registered with your Git provider (like GitHub) as the SSH key.
 
 ```
 ssh-keygen -t ed25519 \
@@ -26,9 +26,7 @@ ssh-keygen -t ed25519 \
     -q -N ""
 ```
 
-The files should be called `ed25519` and `ed25519.pub` and placed in the `creds` directory. The contents of `creds/ed25519.pub` need to be registered with git as the SSH key.
-
-5. A private Git repository accessible via SSH key-pair. This needs to be a *cloud-native buildpacks* compatible codebase - like a spring-boot app. For example, https://github.com/maliksalman/spring-data-jpa-sample. If you want to use that code, fork that repo, but keep the forked copy private so the SSH keys generated above can be utilized.
+4. A private Git repository hosted by the above mentioned Git provider and accessible via above generated SSH key-pair. This needs to be a *cloud-native buildpacks* compatible code-base - like a spring-boot app. For example, https://github.com/maliksalman/spring-data-jpa-sample. If you want to use that code, fork the repository but keep the forked copy private so the SSH keys generated above can be utilized.
 
 6. Access to a Docker registry where OCI images will be uploaded to. This example assumes [Google Cloud Container Registry](https://cloud.google.com/container-registry). The [JSON key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) to access GCP services programmatically is needed. Once obtained, place the contents in `creds/gcr-key.json`
 
